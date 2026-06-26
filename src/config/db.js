@@ -14,6 +14,10 @@ mongoose.set('bufferTimeoutMS', 30000);
 export async function connectDB(maxRetries = 3) {
   let lastError;
 
+  // Mask password for safe logging
+  const maskedUri = env.mongoUri?.replace(/:[^@]+@/, ':****@') || 'NOT SET';
+  logger.info(`Attempting to connect to MongoDB: ${maskedUri}`);
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const conn = await mongoose.connect(env.mongoUri, {

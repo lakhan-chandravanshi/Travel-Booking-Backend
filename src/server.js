@@ -15,6 +15,8 @@ process.on('warning', (warning) => {
 
 async function start() {
   try {
+    logger.info(`Environment: ${env.nodeEnv}`);
+    logger.info(`Connecting to MongoDB (this may take a moment on first request)...`);
     await connectDB();
     const server = app.listen(env.port, () => {
       logger.success(`API ready on http://localhost:${env.port} (${env.nodeEnv})`);
@@ -34,3 +36,8 @@ async function start() {
 }
 
 start();
+
+export default app;
+
+
+
