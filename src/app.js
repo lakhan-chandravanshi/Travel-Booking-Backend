@@ -20,11 +20,7 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 const allowedOrigins = env.clientUrl.split(',').map((o) => o.trim());
 app.use(
   cors({
-    origin: (origin, cb) => {
-      // Allow non-browser clients (curl, server-to-server) with no Origin header.
-      if (!origin || allowedOrigins.includes(origin) || env.clientUrl === '*') return cb(null, true);
-      return cb(null, false);
-    },
+    origin: '*',
     credentials: true,
   })
 );
