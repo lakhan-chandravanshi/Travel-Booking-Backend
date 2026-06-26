@@ -3,6 +3,9 @@ import { env } from './env.js';
 import { logger } from '../utils/logger.js';
 
 mongoose.set('strictQuery', true);
+// Increase the amount of time Mongoose will wait for operations
+// to stop buffering while attempting to connect (default 10000ms).
+mongoose.set('bufferTimeoutMS', 30000);
 
 /**
  * Establish a connection to MongoDB with retry logic.
