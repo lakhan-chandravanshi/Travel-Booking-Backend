@@ -2,6 +2,16 @@ import app from './app.js';
 import { env } from './config/env.js';
 import { connectDB } from './config/db.js';
 import { logger } from './utils/logger.js';
+import { EventEmitter } from 'events';
+
+// Increase default limit for listeners during debugging to avoid noisy warnings.
+EventEmitter.defaultMaxListeners = 20;
+
+// Capture Node.js warnings (including MaxListenersExceededWarning) and log stack traces.
+process.on('warning', (warning) => {
+  logger.warn(`Node warning: ${warning.name} ${warning.message}`);
+  if (warning.stack) logger.warn(warning.stack);
+});
 
 async function start() {
   try {
